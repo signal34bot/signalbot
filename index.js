@@ -47,16 +47,32 @@ bot.on('message', (msg) => {
     console.log(msg);
 
     // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message: ' + msg);
+    bot.sendMessage(chatId, 'Received your message: ' + msg.text);
     bot.sendMessage(chatId, 'Выполняется поиск на signal34');
 
-    var keywords = encodeURIComponent('samsung');
+    var keywords = encodeURIComponent(msg.text);
 
 
 
     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
         .then(function(response) {
-            console.log(response);
+            console.log(response.data);
+
+            const opts = {
+                reply_to_message_id: msg.message_id,
+                reply_markup: JSON.stringify({
+                    keyboard: [
+                        [response.data[0].name],
+                        [response.data[1].name],
+                        [response.data[3].name],
+                        [response.data[4].name],
+                        [response.data[5].name]
+                    ]
+                })
+            };
+            bot.sendMessage(msg.chat.id, 'Do you love me?', opts);
+
+
         });
 
 
