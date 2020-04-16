@@ -52,8 +52,12 @@ bot.on('message', (msg) => {
 
     var keywords = encodeURIComponent('samsung');
 
-    const res = await axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords);
-    console.log(res);
+
+
+    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
+        .then(function(response) {
+            console.log(response);
+        });
 
 
 });
