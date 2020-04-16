@@ -41,6 +41,11 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 // Listen for any kind of message. There are different kinds of
 // messages.
+
+bot.onText(/\/start/, function(msg) {
+
+});
+
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
     // console message
@@ -52,13 +57,12 @@ bot.on('message', (msg) => {
 
     var keywords = encodeURIComponent(msg.text);
 
-
-
     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
         .then(function(response) {
             console.log(response.data);
+            const opts;
             if (response.data.length > 1) {
-                const opts = {
+                opts = {
                     reply_to_message_id: msg.message_id,
                     reply_markup: JSON.stringify({
                         keyboard: [
@@ -72,7 +76,7 @@ bot.on('message', (msg) => {
                 };
 
             } else {
-                const opts = {
+                opts = {
                     reply_to_message_id: msg.message_id,
                     reply_markup: JSON.stringify({
                         keyboard: [
