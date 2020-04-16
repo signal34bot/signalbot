@@ -1,7 +1,7 @@
 // Dependencies
 var express = require('express');
 var packageInfo = require('./package.json');
-var mainCfg = require('./mainCgf.json');
+var mainCfg = require('./mainCfg.json');
 
 var app = express();
 
