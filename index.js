@@ -57,20 +57,32 @@ bot.on('message', (msg) => {
     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
         .then(function(response) {
             console.log(response.data);
+            if (response.data.length > 1) {
+                const opts = {
+                    reply_to_message_id: msg.message_id,
+                    reply_markup: JSON.stringify({
+                        keyboard: [
+                            [response.data[0].name],
+                            [response.data[1].name],
+                            [response.data[3].name],
+                            [response.data[4].name],
+                            [response.data[5].name]
+                        ]
+                    })
+                };
 
-            const opts = {
-                reply_to_message_id: msg.message_id,
-                reply_markup: JSON.stringify({
-                    keyboard: [
-                        [response.data[0].name],
-                        [response.data[1].name],
-                        [response.data[3].name],
-                        [response.data[4].name],
-                        [response.data[5].name]
-                    ]
-                })
-            };
-            bot.sendMessage(msg.chat.id, 'Do you love me?', opts);
+            } else {
+                const opts = {
+                    reply_to_message_id: msg.message_id,
+                    reply_markup: JSON.stringify({
+                        keyboard: [
+                            [response.data[0].name]
+                        ]
+                    })
+                };
+            }
+
+            bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
 
 
         });
