@@ -1,23 +1,24 @@
 {
-  "name": "signalbot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/landisbot/signalbot.git"
-  },
-  "author": "F4rr3LL",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/landisbot/signalbot/issues"
-  },
-  "homepage": "https://github.com/landisbot/signalbot#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "node-telegram-bot-api": "^0.40.0"
-  }
+    "name": "signalbot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node index.js",
+        "start": "npm run dev"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/landisbot/signalbot.git"
+    },
+    "author": "F4rr3LL",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/landisbot/signalbot/issues"
+    },
+    "homepage": "https://github.com/landisbot/signalbot#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "node-telegram-bot-api": "^0.40.0"
+    }
 }
