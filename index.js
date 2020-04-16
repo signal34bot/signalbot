@@ -1,5 +1,6 @@
 // Dependencies
 var express = require('express');
+var axios = require('axios');
 var packageInfo = require('./package.json');
 var mainCfg = require('./mainCfg.json');
 
@@ -42,10 +43,17 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 // messages.
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
-
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message');
-
     // console message
     console.log(msg);
+
+    // send a message to the chat acknowledging receipt of their message
+    bot.sendMessage(chatId, 'Received your message: ' + msg);
+    bot.sendMessage(chatId, 'Выполняется поиск на signal34');
+
+    var keywords = encodeURIComponent('samsung');
+
+    const res = await axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords);
+    console.log(res);
+
+
 });
