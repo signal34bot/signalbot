@@ -41,8 +41,9 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 // Listen for any kind of message. There are different kinds of
 // messages.
+bot.onText(/\/start/, (msg) => {
 
-bot.onText(/\/start/, function(msg) {
+    bot.sendMessage(msg.chat.id, "Добро пожаловать!");
 
 });
 
