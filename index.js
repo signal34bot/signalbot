@@ -65,7 +65,7 @@ bot.on('message', (msg) => {
 
                 var data = response.data;
                 data = data.map(function(a) {
-                    return [{ text: `${a.name}`, callback_data: `productbutton_` + a.product_id }]
+                    return [{ text: `${a.name}`, callback_data: `productbutton_` + a.product_id + `_` + msg.chat.id }]
                 });
                 // console.log(data.length);
                 if (data.length !== 0) {
@@ -93,6 +93,7 @@ bot.on('callback_query', function(msg) {
     var answer = msg.data.split('_');
     var typeofbtn = answer[0];
     var button = answer[1];
+    var chatid = answer[2];
 
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
@@ -102,7 +103,7 @@ bot.on('callback_query', function(msg) {
             .then(function(response) {
                 console.log(response.data);
 
-                bot.sendMessage(msg.chat.id, `
+                bot.sendMessage(chatid, `
                     <b>${response.data.name}</b> \n
                     <i>Цена: ${response.data.price}</i> \n
                     <a href=\"${response.data.producturl}\">Просмотреть товар на сайте</a>
