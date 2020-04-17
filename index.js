@@ -44,7 +44,7 @@ bot.on('message', (msg) => {
                 // console.log(response.data);
                 var data = response.data;
                 data = data.map(function(a) {
-                    return [{ text: `${a.name}`, callback_data: `productbutton_` + a.product_id + `_` + msg.chat.id }]
+                    return [{ text: `${a.name}`, callback_data: `productbutton_` + msg.chat.id + `_` + a.product_id }]
                 });
                 // console.log(data.length);
                 if (data.length !== 0) {
@@ -97,8 +97,9 @@ bot.on('callback_query', function(msg) {
     // Получение значения кнопки (состоит из префикса с типом кнопки и ID)
     var answer = msg.data.split('_');
     var typeofbtn = answer[0];
-    var button = answer[1];
-    var chatid = answer[2];
+    var chatid = answer[1];
+    var button = answer[2];
+
 
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
@@ -144,7 +145,7 @@ bot.on('callback_query', function(msg) {
                     })
                 };
 
-                bot.sendMessage(msg.chat.id, 'Ответ:', options);
+                bot.sendMessage(chatid, 'Ответ:', options);
             }
 
 
