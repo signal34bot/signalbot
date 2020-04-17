@@ -41,55 +41,75 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 // Listen for any kind of message. There are different kinds of
 // messages.
-bot.onText(/\/start/, (msg) => {
+// bot.onText(/\/start/, (msg) => {
 
-    bot.sendMessage(msg.chat.id, "Добро пожаловать!");
+//     bot.sendMessage(msg.chat.id, "Добро пожаловать!");
 
-});
+// });
 
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
     // console message
     console.log(msg);
 
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message: ' + msg.text);
-    bot.sendMessage(chatId, 'Выполняется поиск на signal34');
+    if (msg.text !== '/start') {
+        // send a message to the chat acknowledging receipt of their message
+        // bot.sendMessage(chatId, 'Received your message: ' + msg.text);
+        bot.sendMessage(chatId, 'Выполняется поиск на signal34');
 
-    var keywords = encodeURIComponent(msg.text);
+        var keywords = encodeURIComponent(msg.text);
 
-    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
-        .then(function(response) {
-            console.log(response.data);
+        axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
+            .then(function(response) {
+                console.log(response.data);
 
-            if (response.data.length > 1) {
-                const opts = {
-                    reply_to_message_id: msg.message_id,
-                    reply_markup: JSON.stringify({
-                        keyboard: [
-                            [response.data[0].name],
-                            [response.data[1].name],
-                            [response.data[3].name],
-                            [response.data[4].name],
-                            [response.data[5].name]
-                        ]
-                    })
-                };
-                bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
+                var data = response.data;
+                data = data.map(function(a) {
+                    return [{ text: `${a.name}`, callback_data: `productbutton_` + a.product_id }]
+                });
+                // console.log(data.length);
+                if (data.length !== 0) {
+                    // Формируем меню
+                    var options = {
+                        reply_markup: JSON.stringify({
+                            inline_keyboard: data
+                        })
+                    };
 
-            } else {
-                const opts = {
-                    reply_to_message_id: msg.message_id,
-                    reply_markup: JSON.stringify({
-                        keyboard: [
-                            [response.data[0].name]
-                        ]
-                    })
-                };
-                bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
-            }
+                    bot.sendMessage(chatid, 'Результаты поиска:', options);
+                }
 
-        });
 
+                // if (response.data.length > 1) {
+                //     const opts = {
+                //         reply_to_message_id: msg.message_id,
+                //         reply_markup: JSON.stringify({
+                //             keyboard: [
+                //                 [response.data[0].name],
+                //                 [response.data[1].name],
+                //                 [response.data[3].name],
+                //                 [response.data[4].name],
+                //                 [response.data[5].name]
+                //             ]
+                //         })
+                //     };
+                //     bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
+
+                // } else {
+                //     const opts = {
+                //         reply_to_message_id: msg.message_id,
+                //         reply_markup: JSON.stringify({
+                //             keyboard: [
+                //                 [response.data[0].name]
+                //             ]
+                //         })
+                //     };
+                //     bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
+                // }
+
+            });
+    } else {
+        bot.sendMessage(msg.chat.id, "Добро пожаловать!");
+    }
 
 });
