@@ -61,8 +61,7 @@ bot.on('message', (msg) => {
 
         axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
             .then(function(response) {
-                console.log(response.data);
-
+                // console.log(response.data);
                 var data = response.data;
                 data = data.map(function(a) {
                     return [{ text: `${a.name}`, callback_data: `productbutton_` + a.product_id + `_` + msg.chat.id }]
@@ -81,7 +80,7 @@ bot.on('message', (msg) => {
 
             });
     } else {
-        bot.sendMessage(msg.chat.id, "Добро пожаловать!");
+        bot.sendMessage(msg.chat.id, "Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.");
     }
 
 });
@@ -97,12 +96,10 @@ bot.on('callback_query', function(msg) {
 
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
-        console.log(button);
-
+        // console.log(button);
         axios.get('https://test.signal34.ru/index.php?route=product/product/getProductAjax&productid=' + button)
             .then(function(response) {
-                console.log(response.data);
-
+                // console.log(response.data);
                 bot.sendMessage(chatid, `
                     <b>${response.data.name}</b>
                     <i>Цена: ${response.data.price}</i>
