@@ -113,3 +113,19 @@ bot.on('message', (msg) => {
     }
 
 });
+
+
+// Нажатие на кнопку
+bot.on('callback_query', function(msg) {
+    // Получение значения кнопки (состоит из префикса с типом кнопки и ID)
+    var answer = msg.data.split('_');
+    var typeofbtn = answer[0];
+    var button = answer[1];
+
+    // Проверяем тип кнопки
+    if (typeofbtn == "productbutton") {
+        console.log(button);
+    }
+
+
+});
