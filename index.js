@@ -60,21 +60,45 @@ bot.on('message', (msg) => {
 
             });
     } else {
-        bot.sendMessage(msg.chat.id, "Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.");
+        // bot.sendMessage(msg.chat.id, "Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.");
 
-        // 
-        axios({
-            url: `${restdb}/rest/faq-buttons`,
-            method: "get",
-            headers: {
-                "content-type": "application/json",
-                "x-apikey": axiostoken,
-                "cache-control": "no-cache"
+
+
+
+        const opts = {
+            reply_markup: {
+                inline_keyboard: [
+                    [{
+                            text: 'Часто задаваемые вопросы',
+                            callback_data: 'faqbutton'
+                        },
+                        {
+                            text: 'Перейти на сайт',
+                            callback_data: 'sitebutton'
+                        }
+                    ]
+                ]
             }
-        }).then(function(response) {
-            console.log(response);
-        });
-        // 
+        };
+        bot.sendMessage(msg.chat.id, 'Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.', opts);
+
+
+
+
+
+
+
+
+        // [{ text: `Часто задаваемые вопросы`, callback_data: `faqbutton` }],[{ text: `Перейти на сайт`, callback_data: `sitebutton` }]
+
+
+        // bot.sendMessage(msg.chat.id, "Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.", {
+        //     "reply_markup": {
+        //         "keyboard": [["Часто задаваемые вопросы", "Поиск товара"],   ["Перейти на сайт"], ["I'm robot"]]
+        //         }
+        //     });
+
+        // });
 
 
 
