@@ -76,7 +76,7 @@ bot.on('message', (msg) => {
                         })
                     };
 
-                    bot.sendMessage(chatid, 'Результаты поиска:', options);
+                    bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 }
 
 
