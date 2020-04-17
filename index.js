@@ -87,21 +87,6 @@ bot.on('message', (msg) => {
 
 
 
-
-
-        // [{ text: `Часто задаваемые вопросы`, callback_data: `faqbutton` }],[{ text: `Перейти на сайт`, callback_data: `sitebutton` }]
-
-
-        // bot.sendMessage(msg.chat.id, "Добро пожаловать! Введите в чат интересующий вас товар - и мы выполним поиск по сайту.", {
-        //     "reply_markup": {
-        //         "keyboard": [["Часто задаваемые вопросы", "Поиск товара"],   ["Перейти на сайт"], ["I'm robot"]]
-        //         }
-        //     });
-
-        // });
-
-
-
     }
 });
 // ____________________________________________________
@@ -129,7 +114,43 @@ bot.on('callback_query', function(msg) {
                 `, { parse_mode: "HTML" });
 
             });
+    }
+    if (typeofbtn == "faqbutton") {
 
+
+        // 
+        axios({
+            url: `${restdb}/rest/faq-buttons`,
+            method: "get",
+            headers: {
+                "content-type": "application/json",
+                "x-apikey": axiostoken,
+                "cache-control": "no-cache"
+            }
+        }).then(function(response) {
+            console.log(response.data);
+            // _id, name, text
+
+            var data = response.data;
+            data = data.map(function(a) {
+                return [{ text: `${a.name}`, callback_data: `faqquestion_` + a._id }]
+            });
+            // console.log(data.length);
+            if (data.length !== 0) {
+                // Формируем меню
+                var options = {
+                    reply_markup: JSON.stringify({
+                        inline_keyboard: data
+                    })
+                };
+
+                bot.sendMessage(msg.chat.id, 'Ответ:', options);
+            }
+
+
+
+        });
+        // 
 
     }
 
