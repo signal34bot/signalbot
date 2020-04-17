@@ -64,7 +64,7 @@ bot.on('message', (msg) => {
 
         // 
         axios({
-            url: `${restdb}/faq-buttons`,
+            url: `${restdb}/rest/faq-buttons`,
             method: "get",
             headers: {
                 "content-type": "application/json",
