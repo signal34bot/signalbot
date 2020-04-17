@@ -104,8 +104,8 @@ bot.on('callback_query', function(msg) {
                 console.log(response.data);
 
                 bot.sendMessage(chatid, `
-                    <b>${response.data.name}</b> \n
-                    <i>Цена: ${response.data.price}</i> \n
+                    <b>${response.data.name}</b>
+                    <i>Цена: ${response.data.price}</i>
                     <a href=\"${response.data.producturl}\">Просмотреть товар на сайте</a>
                 `, { parse_mode: "HTML" });
 
