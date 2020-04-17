@@ -106,6 +106,7 @@ bot.on('callback_query', function(msg) {
                 bot.sendMessage(chatid, `
                     <b>${response.data.name}</b>
                     <i>Цена: ${response.data.price}</i>
+                    <i>Наличие на складе: ${response.data.stock_status}</i>
                     <a href=\"${response.data.producturl}\">Просмотреть товар на сайте</a>
                 `, { parse_mode: "HTML" });
 
