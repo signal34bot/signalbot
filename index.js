@@ -101,6 +101,13 @@ bot.on('callback_query', function(msg) {
         axios.get('https://test.signal34.ru/index.php?route=product/product/getProductAjax&productid=' + button)
             .then(function(response) {
                 console.log(response.data);
+
+                bot.sendMessage(msg.chat.id, `
+                    <b>${response.data.name}</b> \n
+                    <i>Цена: ${response.data.price}</i> \n
+                    <a href=\"${response.data.producturl}\">Просмотреть товар на сайте</a>
+                `, { parse_mode: "HTML" });
+
             });
 
 
