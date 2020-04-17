@@ -134,7 +134,7 @@ bot.on('callback_query', function(msg) {
 
             var data = response.data;
             data = data.map(function(a) {
-                return [{ text: `${a.name}`, callback_data: `faqquestion_` + a._id }]
+                return [{ text: `${a.name}`, callback_data: `faqquestion_` + chatid + `_` + a._id }]
             });
             // console.log(data.length);
             if (data.length !== 0) {
