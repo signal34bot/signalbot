@@ -79,34 +79,6 @@ bot.on('message', (msg) => {
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 }
 
-
-                // if (response.data.length > 1) {
-                //     const opts = {
-                //         reply_to_message_id: msg.message_id,
-                //         reply_markup: JSON.stringify({
-                //             keyboard: [
-                //                 [response.data[0].name],
-                //                 [response.data[1].name],
-                //                 [response.data[3].name],
-                //                 [response.data[4].name],
-                //                 [response.data[5].name]
-                //             ]
-                //         })
-                //     };
-                //     bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
-
-                // } else {
-                //     const opts = {
-                //         reply_to_message_id: msg.message_id,
-                //         reply_markup: JSON.stringify({
-                //             keyboard: [
-                //                 [response.data[0].name]
-                //             ]
-                //         })
-                //     };
-                //     bot.sendMessage(msg.chat.id, 'Результаты поиска:', opts);
-                // }
-
             });
     } else {
         bot.sendMessage(msg.chat.id, "Добро пожаловать!");
@@ -125,6 +97,13 @@ bot.on('callback_query', function(msg) {
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
         console.log(button);
+
+        axios.get('https://test.signal34.ru/index.php?route=product/product/getProductAjax&productid=' + button)
+            .then(function(response) {
+                console.log(response.data);
+            });
+
+
     }
 
 
