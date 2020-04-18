@@ -72,11 +72,11 @@ bot.on('message', (msg) => {
                 inline_keyboard: [
                     [{
                             text: 'Часто задаваемые вопросы',
-                            callback_data: 'faqbutton'
+                            callback_data: 'faqbutton_' + msg.chat.id
                         },
                         {
                             text: 'Перейти на сайт',
-                            callback_data: 'sitebutton'
+                            callback_data: 'sitebutton_' + msg.chat.id
                         }
                     ]
                 ]
