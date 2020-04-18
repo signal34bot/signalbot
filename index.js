@@ -151,12 +151,12 @@ bot.on('message', (msg) => {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                            text: 'Часто задаваемые вопросы',
+                            text: '📚 Часто задаваемые вопросы',
                             callback_data: 'faqbutton_' + msg.chat.id
                         },
                         {
-                            text: 'Перейти на сайт',
-                            callback_data: 'sitebutton_' + msg.chat.id
+                            text: '🔍 Поиск товара',
+                            callback_data: 'searchbutton_' + msg.chat.id
                         }
                     ]
                 ]
@@ -233,11 +233,7 @@ bot.on('callback_query', function(msg) {
     }
 
     if (typeofbtn == "faqquestion") {
-
-        console.log('faqquestion:');
-
-
-
+        // console.log('faqquestion:');
         axios({
             url: `${restdb}/rest/faq-buttons/` + button,
             method: "get",
@@ -254,9 +250,12 @@ bot.on('callback_query', function(msg) {
                 <b>${data.name}</b> \n <i>${data.text}</i>
             `, { parse_mode: "HTML" });
         });
+    }
 
-
-
+    if (typeofbtn == "searchbutton") {
+        bot.sendMessage(chatid, `
+            <b>Чтобы найти товар просто напишите в чат поисковый запрос.</b>
+        `, { parse_mode: "HTML" });
     }
 
 
