@@ -59,8 +59,9 @@ bot.on('message', (msg) => {
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 } else {
                     console.log("msg.text: " + msg.text);
-                    rtxt = msg.text
+                    rtxt = msg.text;
                     var upsidedown = rtxt.replace(/[oоaаpрxхcсeе]/g, function(l) {
+                        console.log("ITERATION");
                         if (Math.round(Math.random())) return l
                         var en = "oapxce",
                             ru = "оархсе",
