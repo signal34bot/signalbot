@@ -151,14 +151,13 @@ bot.on('message', (msg) => {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                            text: '📚 Часто задаваемые вопросы',
-                            callback_data: 'faqbutton_' + msg.chat.id
-                        },
-                        {
-                            text: '🔍 Поиск товара',
-                            callback_data: 'searchbutton_' + msg.chat.id
-                        }
-                    ]
+                        text: '📚 Часто задаваемые вопросы',
+                        callback_data: 'faqbutton_' + msg.chat.id
+                    }],
+                    [{
+                        text: '🔍 Поиск товара',
+                        callback_data: 'searchbutton_' + msg.chat.id
+                    }]
                 ]
             }
         };
