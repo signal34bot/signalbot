@@ -38,8 +38,6 @@ bot.on('message', (msg) => {
     if (msg.text !== '/start') {
         bot.sendMessage(chatId, 'Выполняется поиск на signal34');
         var keywords = encodeURIComponent(msg.text);
-        console.log('search: ' + keywords);
-
         axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
             .then(function(response) {
                 // console.log(response.data);
@@ -55,24 +53,20 @@ bot.on('message', (msg) => {
                             inline_keyboard: data
                         })
                     };
-
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 } else {
                     console.log("msg.text: " + msg.text);
                     rtxt = msg.text;
-                    var upsidedown = rtxt.replace(/[oоaаpрxхcсeе]/g, function(l) {
+                    var upsidedown = rtxt.replace(/[bвBВoоaаpрxхcсeе]/g, function(l) {
                         console.log("ITERATION");
                         if (Math.round(Math.random())) return l
-                        var en = "oapxce",
-                            ru = "оархсе",
+                        var en = "bBoapxce",
+                            ru = "вВоархсе",
                             s;
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
                     });
                     console.log("upsidedown: " + upsidedown);
-                    var newkeywords = encodeURIComponent(upsidedown);
-                    console.log("newkeywords: " + newkeywords);
                     // ___
-
                     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + newkeywords)
                         .then(function(response) {
                             console.log(response.data);
@@ -93,7 +87,6 @@ bot.on('message', (msg) => {
                             }
 
                         });
-
                     // ___
                 }
 
