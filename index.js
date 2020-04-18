@@ -99,7 +99,8 @@ bot.on('callback_query', function(msg) {
     var typeofbtn = answer[0];
     var chatid = answer[1];
     var button = answer[2];
-
+    console.log('answer');
+    console.log(answer);
 
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
@@ -117,12 +118,9 @@ bot.on('callback_query', function(msg) {
             });
     }
     if (typeofbtn == "faqbutton") {
-
-
         // 
-        axios({
+        axios.get({
             url: `${restdb}/rest/faq-buttons`,
-            method: "get",
             headers: {
                 "content-type": "application/json",
                 "x-apikey": axiostoken,
@@ -144,7 +142,8 @@ bot.on('callback_query', function(msg) {
                         inline_keyboard: data
                     })
                 };
-
+                console.log('chatid');
+                console.log(chatid);
                 bot.sendMessage(chatid, 'Ответ:', options);
             }
 
