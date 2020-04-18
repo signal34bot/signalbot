@@ -56,12 +56,13 @@ bot.on('message', (msg) => {
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 } else {
                     console.log("msg.text: " + msg.text);
-                    rtxt = msg.text;
-                    var upsidedown = rtxt.replace(/[bвbВoоaаpрxхcсeе]/g, function(l) {
+                    rtxt = msg.text.toLowerCase();
+                    console.log("upsidedown before: " + rtxt);
+                    var upsidedown = rtxt.replace(/[bвoоaаpрxхcсeе]/g, function(l) {
                         console.log("ITERATION");
                         if (Math.round(Math.random())) return l
-                        var en = "bboapxce",
-                            ru = "вВоархсе",
+                        var en = "boapxce",
+                            ru = "воархсе",
                             s;
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
                     });
