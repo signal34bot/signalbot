@@ -87,17 +87,18 @@ bot.on('message', (msg) => {
 
                                 bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                             } else {
+                                console.log("change layout");
 
                                 function Auto(str) {
                                     var search = new Array(
-                                        "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
-                                        "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
-                                        "я", "ч", "с", "м", "и", "т", "ь", "б", "ю"
-                                    );
-                                    var replace = new Array(
                                         "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\\[", "\\]",
                                         "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
                                         "z", "x", "c", "v", "b", "n", "m", ",", "\\."
+                                    );
+                                    var replace = new Array(
+                                        "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+                                        "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
+                                        "я", "ч", "с", "м", "и", "т", "ь", "б", "ю"
                                     );
 
                                     for (var i = 0; i < replace.length; i++) {
@@ -109,7 +110,7 @@ bot.on('message', (msg) => {
                                     return str
                                 }
                                 var reversekey = Auto(rtxt);
-
+                                console.log("reversekey");
                                 // ___
                                 axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + reversekey)
                                     .then(function(response) {
