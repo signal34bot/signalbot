@@ -58,6 +58,37 @@ bot.on('message', (msg) => {
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 } else {
 
+                    var upsidedown = keywords.replace(/[oоaаpрxхcсeе]/g, function(l) {
+                        if (Math.round(Math.random())) return l
+                        var en = "oapxce",
+                            ru = "оархсе",
+                            s;
+                        return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
+                    });
+                    // ___
+
+                    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
+                        .then(function(response) {
+                            // console.log(response.data);
+                            var data = response.data;
+                            data = data.map(function(a) {
+                                return [{ text: `${a.name}`, callback_data: `productbutton_` + msg.chat.id + `_` + a.product_id }]
+                            });
+                            // console.log(data.length);
+                            if (data.length !== 0) {
+                                // Формируем меню
+                                var options = {
+                                    reply_markup: JSON.stringify({
+                                        inline_keyboard: data
+                                    })
+                                };
+
+                                bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
+                            }
+
+                        });
+
+                    // ___
                 }
 
             });
@@ -122,8 +153,9 @@ bot.on('callback_query', function(msg) {
     }
     if (typeofbtn == "faqbutton") {
         // 
-        axios.get({
+        axios({
             url: `${restdb}/rest/faq-buttons`,
+            method: "get",
             headers: {
                 "content-type": "application/json",
                 "x-apikey": axiostoken,
@@ -147,7 +179,7 @@ bot.on('callback_query', function(msg) {
                 };
                 console.log('chatid');
                 console.log(chatid);
-                bot.sendMessage(chatid, 'Ответ:', options);
+                bot.sendMessage(chatid, 'Ответы на часто задаваемые вопросы:', options);
             }
 
 
