@@ -86,6 +86,53 @@ bot.on('message', (msg) => {
                                 };
 
                                 bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
+                            } else {
+
+                                function Auto(str) {
+                                    var search = new Array(
+                                        "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+                                        "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
+                                        "я", "ч", "с", "м", "и", "т", "ь", "б", "ю"
+                                    );
+                                    var replace = new Array(
+                                        "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\\[", "\\]",
+                                        "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
+                                        "z", "x", "c", "v", "b", "n", "m", ",", "\\."
+                                    );
+
+                                    for (var i = 0; i < replace.length; i++) {
+                                        var reg = new RegExp(replace[i], 'mig');
+                                        str = str.replace(reg, function(a) {
+                                            return a == a.toLowerCase() ? search[i] : search[i].toUpperCase();
+                                        })
+                                    }
+                                    return str
+                                }
+                                var reversekey = Auto(rtxt);
+
+                                // ___
+                                axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + reversekey)
+                                    .then(function(response) {
+                                        console.log(response.data);
+                                        var data = response.data;
+                                        data = data.map(function(a) {
+                                            return [{ text: `${a.name}`, callback_data: `productbutton_` + msg.chat.id + `_` + a.product_id }]
+                                        });
+                                        // console.log(data.length);
+                                        if (data.length !== 0) {
+                                            // Формируем меню
+                                            var options = {
+                                                reply_markup: JSON.stringify({
+                                                    inline_keyboard: data
+                                                })
+                                            };
+
+                                            bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
+                                        }
+
+                                    });
+                                // ___
+
                             }
 
                         });
