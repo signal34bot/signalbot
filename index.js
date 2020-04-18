@@ -66,6 +66,8 @@ bot.on('message', (msg) => {
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
                     });
                     console.log("upsidedown: " + upsidedown);
+
+                    var newkeywords = encodeURIComponent(upsidedown);
                     // ___
                     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + newkeywords)
                         .then(function(response) {
