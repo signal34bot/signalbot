@@ -57,10 +57,10 @@ bot.on('message', (msg) => {
                 } else {
                     console.log("msg.text: " + msg.text);
                     rtxt = msg.text;
-                    var upsidedown = rtxt.replace(/[bвBВoоaаpрxхcсeе]/g, function(l) {
+                    var upsidedown = rtxt.replace(/[bвbВoоaаpрxхcсeе]/g, function(l) {
                         console.log("ITERATION");
                         if (Math.round(Math.random())) return l
-                        var en = "bBoapxce",
+                        var en = "bboapxce",
                             ru = "вВоархсе",
                             s;
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
