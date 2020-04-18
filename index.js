@@ -110,9 +110,9 @@ bot.on('message', (msg) => {
                                     return str
                                 }
                                 var reversekey = Auto(rtxt);
-                                console.log("reversekey");
+                                console.log(reversekey);
                                 // ___
-                                axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + reversekey)
+                                axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + encodeURIComponent(reversekey);)
                                     .then(function(response) {
                                         console.log(response.data);
                                         var data = response.data;
