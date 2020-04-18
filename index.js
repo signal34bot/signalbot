@@ -38,6 +38,7 @@ bot.on('message', (msg) => {
     if (msg.text !== '/start') {
         bot.sendMessage(chatId, 'Выполняется поиск на signal34');
         var keywords = encodeURIComponent(msg.text);
+        console.log('search: ' + keywords);
 
         axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
             .then(function(response) {
@@ -67,7 +68,7 @@ bot.on('message', (msg) => {
                     });
                     // ___
 
-                    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + keywords)
+                    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + upsidedown)
                         .then(function(response) {
                             // console.log(response.data);
                             var data = response.data;
@@ -136,7 +137,9 @@ bot.on('callback_query', function(msg) {
     console.log(typeofbtn);
     console.log('chatid1');
     console.log(chatid);
+
     // Проверяем тип кнопки
+
     if (typeofbtn == "productbutton") {
         // console.log(button);
         axios.get('https://test.signal34.ru/index.php?route=product/product/getProductAjax&productid=' + button)
@@ -151,8 +154,9 @@ bot.on('callback_query', function(msg) {
 
             });
     }
+
     if (typeofbtn == "faqbutton") {
-        // 
+        // получаем список кнопок из бд
         axios({
             url: `${restdb}/rest/faq-buttons`,
             method: "get",
@@ -164,7 +168,6 @@ bot.on('callback_query', function(msg) {
         }).then(function(response) {
             console.log(response.data);
             // _id, name, text
-
             var data = response.data;
             data = data.map(function(a) {
                 return [{ text: `${a.name}`, callback_data: `faqquestion_` + chatid + `_` + a._id }]
@@ -181,13 +184,15 @@ bot.on('callback_query', function(msg) {
                 console.log(chatid);
                 bot.sendMessage(chatid, 'Ответы на часто задаваемые вопросы:', options);
             }
-
-
-
         });
-        // 
+    }
+
+    if (typeofbtn == "faqquestion") {
+
+        console.log('faqquestion:');
 
     }
+
 
 
 });
