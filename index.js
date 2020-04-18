@@ -59,18 +59,19 @@ bot.on('message', (msg) => {
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
                 } else {
 
-                    var upsidedown = keywords.replace(/[oоaаpрxхcсeе]/g, function(l) {
+                    var upsidedown = msg.text.replace(/[oоaаpрxхcсeе]/g, function(l) {
                         if (Math.round(Math.random())) return l
                         var en = "oapxce",
                             ru = "оархсе",
                             s;
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
                     });
+                    console.log("upsidedown: " + upsidedown);
                     // ___
 
                     axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + upsidedown)
                         .then(function(response) {
-                            // console.log(response.data);
+                            console.log(response.data);
                             var data = response.data;
                             data = data.map(function(a) {
                                 return [{ text: `${a.name}`, callback_data: `productbutton_` + msg.chat.id + `_` + a.product_id }]
