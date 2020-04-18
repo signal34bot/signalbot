@@ -58,9 +58,9 @@ bot.on('message', (msg) => {
                     console.log("msg.text: " + msg.text);
                     rtxt = msg.text.toLowerCase();
                     console.log("upsidedown before: " + rtxt);
+
                     var upsidedown = rtxt.replace(/[bвoоaаpрxхcсeе]/g, function(l) {
-                        console.log("ITERATION");
-                        if (Math.round(Math.random())) return l
+
                         var en = "boapxce",
                             ru = "воархсе",
                             s;
