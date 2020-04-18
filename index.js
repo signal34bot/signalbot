@@ -134,10 +134,7 @@ bot.on('callback_query', function(msg) {
     var typeofbtn = answer[0];
     var chatid = answer[1];
     var button = answer[2];
-    console.log('typeofbtn');
-    console.log(typeofbtn);
-    console.log('chatid1');
-    console.log(chatid);
+
 
     // Проверяем тип кнопки
 
@@ -191,6 +188,28 @@ bot.on('callback_query', function(msg) {
     if (typeofbtn == "faqquestion") {
 
         console.log('faqquestion:');
+
+
+
+        axios({
+            url: `${restdb}/rest/faq-buttons/` + button,
+            method: "get",
+            headers: {
+                "content-type": "application/json",
+                "x-apikey": axiostoken,
+                "cache-control": "no-cache"
+            }
+        }).then(function(response) {
+            console.log(response.data);
+            // _id, name, text
+            var data = response.data;
+            bot.sendMessage(chatid, `
+                <b>${data.name}</b>
+                <i>Цена: ${data.text}</i>
+            `, { parse_mode: "HTML" });
+        });
+
+
 
     }
 
