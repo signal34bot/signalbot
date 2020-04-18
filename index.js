@@ -66,10 +66,12 @@ bot.on('message', (msg) => {
                             s;
                         return (s = en.indexOf(l)) != -1 ? ru[s] : en[ru.indexOf(l)]
                     });
-                    console.log("upsidedown: " + upsidedown);
+
+                    var newkeywords = encodeURIComponent(upsidedown);
+                    console.log("newkeywords: " + newkeywords);
                     // ___
 
-                    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + upsidedown)
+                    axios.get('https://test.signal34.ru/index.php?route=product/ajaxsearch/ajax&keyword=' + newkeywords)
                         .then(function(response) {
                             console.log(response.data);
                             var data = response.data;
@@ -204,8 +206,7 @@ bot.on('callback_query', function(msg) {
             // _id, name, text
             var data = response.data;
             bot.sendMessage(chatid, `
-                <b>${data.name}</b>
-                <i>Цена: ${data.text}</i>
+                <b>${data.name}</b> \n <i>${data.text}</i>
             `, { parse_mode: "HTML" });
         });
 
