@@ -56,6 +56,8 @@ bot.on('message', (msg) => {
                     };
 
                     bot.sendMessage(msg.chat.id, 'Результаты поиска:', options);
+                } else {
+
                 }
 
             });
@@ -99,9 +101,10 @@ bot.on('callback_query', function(msg) {
     var typeofbtn = answer[0];
     var chatid = answer[1];
     var button = answer[2];
-    console.log('answer');
-    console.log(answer);
-
+    console.log('typeofbtn');
+    console.log(typeofbtn);
+    console.log('chatid1');
+    console.log(chatid);
     // Проверяем тип кнопки
     if (typeofbtn == "productbutton") {
         // console.log(button);
